@@ -9,15 +9,14 @@ namespace InstagramFollowerAnalyzerApp
     {
         public MainWindow()
         {
-            this.ViewModel = new MainWindowViewModel();
             InitializeComponent();
         }
 
-        public MainWindowViewModel ViewModel { get; }
-
         private void CompareButtonClick(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.Compare(this.FollowersInput.ViewModel.Entries, this.FollowingInput.ViewModel.Entries);
+            this.DifferenceReport.ViewModel.Compare(this.FollowersInput.ViewModel.Entries, this.FollowingInput.ViewModel.Entries);
+            this.FollowersReport.ViewModel.SetEntries(this.FollowersInput.ViewModel.Entries);
+            this.FollowingReport.ViewModel.SetEntries(this.FollowingInput.ViewModel.Entries);
         }
     }
 }
