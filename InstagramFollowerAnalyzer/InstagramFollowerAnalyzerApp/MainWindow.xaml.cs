@@ -9,7 +9,10 @@ namespace InstagramFollowerAnalyzerApp
     {
         public MainWindow()
         {
+            this.ViewModel = new MainWindowViewModel();
             InitializeComponent();
         }
+
+        public MainWindowViewModel ViewModel { get; set; }
     }
 }
