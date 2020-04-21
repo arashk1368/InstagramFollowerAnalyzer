@@ -1,6 +1,7 @@
-namespace InstagramFollowerAnalyzerApp.FollowerInput
+﻿namespace InstagramFollowerAnalyzerApp.FollowerInput
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
     using System.Runtime.CompilerServices;
@@ -22,6 +23,8 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
             }
         }
 
+        public IEnumerable<string> Entries { get; private set; }
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -36,6 +39,7 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
             }
 
             this.entriesToDisplay = string.Empty;
+            var entries = new List<string>();
 
             try
             {
@@ -51,6 +55,7 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
                     }
 
                     this.entriesToDisplay += line + Environment.NewLine;
+                    entries.Add(line.Trim());
                 }
             }
             catch (Exception exception)
@@ -59,6 +64,7 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
             }
 
             this.OnPropertyChanged(nameof(this.EntriesToDisplay));
+            this.Entries = entries;
         }
     }
 }

@@ -70,10 +70,11 @@
             <StackPanel
                 Orientation="Vertical">
                     <followerInput:FollowerInput
+                        x:Name="FollowersInput"
                         Title="Followers"/>
 
-
                     <followerInput:FollowerInput
+                        x:Name="FollowingInput"
                         Title="Following"/>
             </StackPanel>
         </ScrollViewer>
@@ -91,13 +92,14 @@
 
             <Button 
                 Style="{StaticResource VerticalButton}"
-                Content="Compare">
+                Content="Compare"
+                Click="CompareButtonClick">
             </Button>
             
             <ScrollViewer
                 Grid.Column="1">
                 <TextBox 
-                    Text="Please Compare First"/>
+                    Text="{Binding ComparisonResult, Mode=OneWay}"/>
             </ScrollViewer>
         </Grid>
 
