@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
+    using System.Linq;
     using System.Runtime.CompilerServices;
 
     public class FollowerInputViewModel : INotifyPropertyChanged
@@ -15,15 +16,15 @@
         public string EntriesToDisplay
         {
             get => this.entriesToDisplay;
-
-            private set
+            
+            set
             {
                 this.entriesToDisplay = value;
                 this.OnPropertyChanged();
             }
         }
 
-        public IEnumerable<string> Entries { get; private set; }
+        public IEnumerable<string> Entries => this.entriesToDisplay.Split(Environment.NewLine).Select(en => en.Trim());
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -39,7 +40,6 @@
             }
 
             this.entriesToDisplay = string.Empty;
-            var entries = new List<string>();
 
             try
             {
@@ -55,7 +55,6 @@
                     }
 
                     this.entriesToDisplay += line + Environment.NewLine;
-                    entries.Add(line.Trim());
                 }
             }
             catch (Exception exception)
@@ -64,7 +63,6 @@
             }
 
             this.OnPropertyChanged(nameof(this.EntriesToDisplay));
-            this.Entries = entries;
         }
     }
 }

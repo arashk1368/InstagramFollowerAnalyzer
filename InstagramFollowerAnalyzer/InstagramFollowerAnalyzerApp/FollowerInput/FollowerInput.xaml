@@ -30,7 +30,7 @@
         <ScrollViewer
             Grid.Row="2">
             <TextBox 
-                Text="{Binding EntriesToDisplay, Mode=OneWay}"/>
+                Text="{Binding EntriesToDisplay, Mode=TwoWay}"/>
         </ScrollViewer>
 
     </Grid>
