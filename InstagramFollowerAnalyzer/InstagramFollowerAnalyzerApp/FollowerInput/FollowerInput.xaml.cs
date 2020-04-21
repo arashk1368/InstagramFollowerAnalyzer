@@ -4,6 +4,8 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
 {
     using System.Windows;
 
+    using Microsoft.Win32;
+
     /// <summary>
     /// Interaction logic for FollowerInput.xaml
     /// </summary>
@@ -25,5 +27,13 @@ namespace InstagramFollowerAnalyzerApp.FollowerInput
 
         public FollowerInputViewModel ViewModel { get; }
 
+        private void BrowseFileClick(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog { FileName = string.Empty, Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*", Title = "Open File", CheckFileExists = true, CheckPathExists = true, };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                this.ViewModel.LoadFile(openFileDialog.FileName);
+            }
+        }
     }
 }
