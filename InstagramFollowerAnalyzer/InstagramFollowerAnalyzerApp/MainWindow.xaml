@@ -61,9 +61,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
         <ScrollViewer
@@ -90,6 +90,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button 
@@ -105,17 +106,35 @@
 
                     <report:DifferenceReportView
                         x:Name="FollowersReport"
-                        Title="Followers Report"/>
+                        Title="Followers Report (Unique followers)"/>
 
                     <report:DifferenceReportView
                         x:Name="FollowingReport"
                         Margin="0,20,0,0"
-                        Title="Following Report"/>
+                        Title="Following Report (Unique following)"/>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer
+                Grid.Column="2"
+                Margin="10,0,0,0">
+                <StackPanel
+                    Orientation="Vertical">
 
                     <report:DifferenceReportView
-                        x:Name="DifferenceReport"
+                        x:Name="FollowingNotFollowerReport"
+                        Title="Following which are not followers"/>
+
+                    <report:DifferenceReportView
+                        x:Name="FollowersNotFollowingReport"
                         Margin="0,20,0,0"
-                        Title="Difference Report"/>
+                        Title="Followers which are not following"/>
+
+                    <report:DifferenceReportView
+                        x:Name="FollowersAndFollowingReport"
+                        Margin="0,20,0,0"
+                        Title="Followers which are also following"/>
 
                 </StackPanel>
             </ScrollViewer>

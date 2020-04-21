@@ -16,6 +16,13 @@
 
         private string numberDisplay = string.Empty;
 
+        internal enum ComparisonMode
+        {
+            FollowersNotFollowing,
+            FollowingNotFollowers,
+            FollowersAndFollowing
+        }
+
         public string EntriesDisplay
         {
             get => this.entriesDisplay;
@@ -57,7 +64,7 @@
             this.DisplayEntries(parsedEntries);
         }
 
-        internal void Compare(IEnumerable<string> followers, IEnumerable<string> followings)
+        internal void Compare(IEnumerable<string> followers, IEnumerable<string> followings, ComparisonMode comparisonMode)
         {
             if (followers == null)
             {
@@ -76,9 +83,27 @@
             var followersSet = new HashSet<string>(followers.Where(entry => !string.IsNullOrWhiteSpace(entry) && entry.EndsWith(WildCard, StringComparison.Ordinal)).Select(entry => entry.Replace(WildCard, null)));
             var followingsSet = new HashSet<string>(followings.Where(entry => !string.IsNullOrWhiteSpace(entry) && entry.EndsWith(WildCard, StringComparison.Ordinal)).Select(entry => entry.Replace(WildCard, null)));
 
-            followingsSet.ExceptWith(followersSet);
+            HashSet<string> resultSet;
 
-            this.DisplayEntries(followingsSet);
+            switch (comparisonMode)
+            {
+                case ComparisonMode.FollowersNotFollowing:
+                    followersSet.ExceptWith(followingsSet);
+                    resultSet = followersSet;
+                    break;
+                case ComparisonMode.FollowingNotFollowers:
+                    followingsSet.ExceptWith(followersSet);
+                    resultSet = followingsSet;
+                    break;
+                case ComparisonMode.FollowersAndFollowing:
+                    followersSet.IntersectWith(followingsSet);
+                    resultSet = followersSet;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(comparisonMode), comparisonMode, null);
+            }
+
+            this.DisplayEntries(resultSet);
         }
 
         private void DisplayEntries(IEnumerable<string> parsedEntries)
