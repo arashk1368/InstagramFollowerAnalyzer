@@ -21,18 +21,40 @@
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="Width" Value="5"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Margin" Value="10,0,10,0"/>
         </Style>
         <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
         </Style>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Width" Value="200"/>
         </Style>
+        <Style TargetType="{x:Type Button}"
+               x:Key="VerticalButton"
+               BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="-90" />
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="{x:Type Label}">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="AntiqueWhite"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="UndoLimit" Value="100"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
         </Style>
     </Window.Resources>
 
@@ -43,27 +65,41 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel
-            Orientation="Vertical"
+        <ScrollViewer
             Grid.Column="0">
-                <followerInput:FollowerInput
-                    Title="Followers"/>
-                
-                <Button
-                    Content="Compare"/>
+            <StackPanel
+                Orientation="Vertical">
+                    <followerInput:FollowerInput
+                        Title="Followers"/>
 
-                <followerInput:FollowerInput
-                    Title="Following"/>
-        </StackPanel>
+
+                    <followerInput:FollowerInput
+                        Title="Following"/>
+            </StackPanel>
+        </ScrollViewer>
 
         <GridSplitter
             Grid.Column="1"/>
 
-        <ScrollViewer
+        <Grid
             Grid.Column="2">
-            <TextBox 
-                Text="Please Compare First"/>
-        </ScrollViewer>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Style="{StaticResource VerticalButton}"
+                Content="Compare">
+            </Button>
+            
+            <ScrollViewer
+                Grid.Column="1">
+                <TextBox 
+                    Text="Please Compare First"/>
+            </ScrollViewer>
+        </Grid>
 
     </Grid>
 </Window>
