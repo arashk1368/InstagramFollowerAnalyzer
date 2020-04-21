@@ -1,4 +1,4 @@
-﻿namespace InstagramFollowerAnalyzerApp.FollowerInput
+namespace InstagramFollowerAnalyzerApp.FollowerInput
 {
     using System;
     using System.ComponentModel;
@@ -9,15 +9,15 @@
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string followers = "Please paste here or browse from file...";
+        private string entriesToDisplay = "Please paste here or browse from file...";
 
-        public string Followers
+        public string EntriesToDisplay
         {
-            get => this.followers;
+            get => this.entriesToDisplay;
 
-            set
+            private set
             {
-                this.followers = value;
+                this.entriesToDisplay = value;
                 this.OnPropertyChanged();
             }
         }
@@ -27,15 +27,15 @@
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void LoadFile(string filePath)
+        internal void LoadFile(string filePath)
         {
             if (!File.Exists(filePath))
             {
-                this.Followers = "The file does not exist, please select a valid file.";
+                this.EntriesToDisplay = "The file does not exist, please select a valid file.";
                 return;
             }
 
-            this.followers = string.Empty;
+            this.entriesToDisplay = string.Empty;
 
             try
             {
@@ -50,15 +50,15 @@
                         continue;
                     }
 
-                    this.followers += line + Environment.NewLine;
+                    this.entriesToDisplay += line + Environment.NewLine;
                 }
             }
             catch (Exception exception)
             {
-                this.followers = $"Could not read file : {exception}";
+                this.entriesToDisplay = $"Could not read file : {exception}";
             }
 
-            this.OnPropertyChanged(nameof(this.Followers));
+            this.OnPropertyChanged(nameof(this.EntriesToDisplay));
         }
     }
 }
